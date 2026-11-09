@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en" data-theme="glossy" data-layout="magazine">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Recipe Box</title>
+  <meta name="description" content="Save recipes from Instagram, the web or your camera. Stored locally on your phone, works offline.">
+  <meta name="theme-color" content="#b23a2e">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Recipes">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="stylesheet" href="css/styles.css">
+  <script defer src="js/db.js"></script>
+  <script defer src="js/app.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">Recipe&nbsp;Box</div>
+    <input id="search" type="search" placeholder="Search recipes…" aria-label="Search recipes">
+    <button id="install-btn" class="btn" hidden>Install</button>
+    <button id="settings-btn" class="icon-btn" aria-label="Settings">⚙</button>
+  </header>
+
+  <main id="view"></main>
+
+  <button id="fab" aria-label="Add recipe">+</button>
+
+  <dialog id="settings">
+    <form method="dialog">
+      <h2>Settings</h2>
+      <fieldset>
+        <legend>Layout</legend>
+        <label><input type="radio" name="layout" value="magazine"> Magazine (default)</label>
+        <label><input type="radio" name="layout" value="feed"> Feed — photo cards</label>
+        <label><input type="radio" name="layout" value="list"> Compact list</label>
+        <label><input type="radio" name="layout" value="minimal"> Minimal text</label>
+      </fieldset>
+      <fieldset>
+        <legend>Theme</legend>
+        <label><input type="radio" name="theme" value="glossy"> Glossy magazine (default)</label>
+        <label><input type="radio" name="theme" value="light"> Light</label>
+        <label><input type="radio" name="theme" value="dark"> Dark</label>
+      </fieldset>
+      <div class="row">
+        <button id="export-btn" class="btn" type="button">Export JSON</button>
+        <label class="btn">Import JSON<input id="import-file" type="file" accept=".json,application/json" hidden></label>
+      </div>
+      <div class="actions"><button class="btn primary" value="close">Done</button></div>
+    </form>
+  </dialog>
+
+  <noscript><p style="padding:2rem;text-align:center">Recipe Box needs JavaScript — all data stays on your phone.</p></noscript>
+</body>
+</html>

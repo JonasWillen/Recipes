@@ -1,0 +1,41 @@
+# Prompt Log
+
+Append-only log of every user prompt given while this app was being created, so anyone
+can trace exactly how Recipe Box was built. Never edit or delete entries — append new
+ones at the bottom.
+
+Format per entry:
+
+- `id` — message id of the prompt
+- `time` — UTC timestamp
+- `prompt` — verbatim prompt text
+- `outcome` — what the prompt led to (decisions, files, answers)
+
+---
+
+## Entry 1
+
+- id: `fd57aeff-b545-4a71-a570-371076e74f16`
+- time: `2026-11-09T20:48:14Z`
+- prompt:
+
+  > I would like you to create a progressiv web app to store recipes locally on the phone from links from instagram, online och phones I have taken. Give me some different choices of ux to choose from and make the system so i can run the app using google.io. During the process create a readme.md file describing the structure. Start with spec.md that also include meta part like how all promts are recorded in log file for easy understanding how this app have been created.
+
+- outcome:
+  - Built a dependency-free PWA ("Recipe Box") in this repo: `index.html`,
+    `manifest.webmanifest`, `sw.js`, `js/db.js`, `js/app.js`, `css/styles.css`,
+    `icons/`, `tools/make_icons.py`.
+  - Storage fully local on the phone via IndexedDB; recipes can be captured from
+    Instagram/online links (Web Share Target + manual paste) and from phone photos
+    (camera capture, on-device compression).
+  - Four UX layouts offered and all implemented, switchable in Settings:
+    Magazine / Feed (photo cards) / Compact list / Minimal text.
+  - Three themes implemented, switchable in Settings: Glossy magazine / Light / Dark.
+  - User picked defaults via follow-up answers:
+    - layout: "magazine sounds cool go for that" → **Magazine** default
+    - theme: "make some thing unique like a glossy magazine" → **Glossy magazine** default
+  - "google.io" interpreted as GitHub Pages (`*.github.io`): app uses relative paths so
+    it is served from `https://jonaswillen.github.io/Recipes/` once Pages is enabled
+    (see `spec.md` → "Hosting on github.io"; noted the private-repo caveat).
+  - Created `README.md` (structure + how to run) and `spec.md` (spec + this meta
+    section describing the prompt-log convention implemented by this very file).
