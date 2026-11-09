@@ -242,6 +242,7 @@
         <label>Tags (comma separated)<input id="f-tags" value="${esc((r.tags || []).join(', '))}" placeholder="pasta, vegetarian"></label>
         <fieldset class="photos-field">
           <legend>Photos</legend>
+          <p class="drop-hint">Drag &amp; drop images here — or use the buttons below</p>
           <div id="photo-grid" class="photo-grid"></div>
           <div class="row">
             <label class="btn">📷 Take photo<input id="f-camera" type="file" accept="image/*" capture="environment" hidden></label>
@@ -273,6 +274,18 @@
     }
     $('#f-camera', view).addEventListener('change', (e) => addFiles(e.target.files));
     $('#f-files', view).addEventListener('change', (e) => addFiles(e.target.files));
+
+    const dropField = $('.photos-field', view);
+    const hasFiles = (e) => !!(e.dataTransfer && Array.from(e.dataTransfer.types || []).includes('Files'));
+    view.addEventListener('dragenter', (e) => { if (hasFiles(e)) { e.preventDefault(); dropField.classList.add('drop-active'); } });
+    view.addEventListener('dragover', (e) => { if (hasFiles(e)) { e.preventDefault(); dropField.classList.add('drop-active'); } });
+    view.addEventListener('dragleave', (e) => { if (!view.contains(e.relatedTarget)) dropField.classList.remove('drop-active'); });
+    view.addEventListener('drop', (e) => {
+      if (!hasFiles(e)) return;
+      e.preventDefault();
+      dropField.classList.remove('drop-active');
+      addFiles(Array.from(e.dataTransfer.files || []));
+    });
     $('#f-cancel', view).addEventListener('click', () => { location.hash = id ? '#/recipe/' + id : '#/'; });
 
     $('#recipe-form', view).addEventListener('submit', async (e) => {
@@ -375,6 +388,8 @@
   }
 
   function bindHeader() {
+    window.addEventListener('dragover', (e) => e.preventDefault());
+    window.addEventListener('drop', (e) => e.preventDefault());
     const search = $('#search');
     search.value = state.q;
     search.addEventListener('input', () => {

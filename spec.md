@@ -20,6 +20,7 @@ Prompt-log convention (append-only):
 - Entry 1 (session `fd57aeff-b545-4a71-a570-371076e74f16`, 2026-11-09) contains the
   original request and the two UX decisions the user made (Magazine layout + glossy
   magazine theme as defaults). Entry 2 (`b2e43615-…`) covers the github.io/Pages check.
+  Entry 3 (`cf4226ba-…`) adds drag & drop of images to the recipe form.
 
 Key facts about this build:
 
@@ -42,6 +43,7 @@ Key facts about this build:
    - **Paste a link** manually into the "New recipe" form.
    - **Take/attach photos** of a recipe (camera capture button or photo picker); photos
      are compressed on-device before storage.
+   - **Drag & drop** image files onto the photo area of the recipe form.
 3. Browse, search, filter by tag, favorite, sort — all offline.
 4. Installable to the home screen (PWA) and fully usable offline via a service worker.
 5. Data stays on the phone; JSON export/import for backup and migration.
@@ -130,6 +132,10 @@ prompts.log              Append-only log of every prompt used to build this app
 - **Camera:** `<input type="file" accept="image/*" capture="environment">` opens the
   rear camera directly; images are downscaled to max 1600 px JPEG q0.85 via canvas
   before being stored, to keep IndexedDB usage small.
+- **Drag & drop:** image files can be dropped anywhere on the New/Edit form; the photo
+  area highlights on dragover, dropped images go through the same on-device compression
+  as picked files. Global `dragover`/`drop` handlers prevent the browser's default
+  "open the dropped file" navigation.
 - **Backup:** Settings → Export JSON downloads all recipes (photos as data URLs);
   Import JSON restores them.
 
@@ -189,6 +195,8 @@ the user's own export.
 - [ ] In Instagram (or any app) → Share → "Recipe Box" → link + photo arrive pre-filled
   in the New-recipe form.
 - [ ] New recipe with camera photo → saved, visible in list, opens in detail.
+- [ ] Drag & drop image files onto the New-recipe photo area → thumbnails appear and
+  are saved with the recipe.
 - [ ] Search / tag filter / favorites / sort work.
 - [ ] Settings: switch layout and theme, reload → persisted.
 - [ ] Export JSON → file downloads; import it back on another device.

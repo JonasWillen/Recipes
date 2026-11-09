@@ -12,6 +12,8 @@ can be **installed to your home screen** like a native app.
 - 🔗 **Paste any link** manually; the source site is shown as a chip.
 - 📷 **Take photos** with the camera button or pick from gallery; images are compressed
   on-device before saving.
+- 🖐️ **Drag & drop** image files onto the photo area of the recipe form (e.g. from a
+  desktop file manager or another browser tab).
 - 🏷️ Tags, favorites ★, full-text search, sort (newest / oldest / A–Z).
 - 🎨 Four switchable **layouts** — Magazine (default), Feed (photo grid), Compact list,
   Minimal — and three **themes** — Glossy magazine (default), Light, Dark (⚙ Settings).

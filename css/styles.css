@@ -301,3 +301,7 @@ dialog fieldset label { display: block; margin: 6px 0; font-size: 0.92rem; }
   :root[data-layout="magazine"] .card-title { font-size: 1.3rem; }
   .detail h1 { font-size: 1.6rem; }
 }
+
+.photos-field { border-style: dashed; }
+.drop-hint { margin: 0 0 10px; font-size: 0.8rem; color: var(--muted); }
+.photos-field.drop-active { border-color: var(--accent); background: var(--accent-soft); }

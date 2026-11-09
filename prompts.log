@@ -66,3 +66,24 @@ Format per entry:
     share-target action `./share-target`, SW registered as `sw.js`; all 16 paths served
     HTTP 200 from a loopback server smoke test.
   - Updated `spec.md` / `README.md` hosting sections with the verified status and steps.
+
+---
+
+## Entry 3
+
+- id: `cf4226ba-97a0-4e52-b698-07b9e52f0edd`
+- time: `2026-11-09T21:30:44Z`
+- prompt:
+
+  > Change so it is possible to make a drag and drop of images.
+
+- outcome:
+  - `js/app.js`: the New/Edit recipe form now accepts drag & drop — `dragenter`/`dragover`
+    highlight the photo fieldset (`.drop-active`), `drop` feeds dropped files into the
+    existing `addFiles()` pipeline (image filter + on-device JPEG compression), and
+    `dragleave` clears the highlight. Global `dragover`/`drop` handlers in `bindHeader()`
+    `preventDefault()` so dropping a file anywhere never triggers the browser's default
+    navigation to the image.
+  - `css/styles.css`: dashed border on the photo field + `.drop-hint` text + highlighted
+    `.drop-active` state.
+  - `spec.md` / `README.md`: feature documented (goals, PWA details, checklist).
