@@ -28,17 +28,22 @@ python3 -m http.server 8000
 
 ## Run it on github.io (GitHub Pages)
 
-The app is plain static files with relative paths, so it runs from a project page:
+The app is plain static files (`index.html` + `.nojekyll` at the repo root, all paths
+relative), so it runs from a project page. The repo is public, so GitHub Free works.
 
-1. Push/merge to `main`.
-2. Repo → **Settings → Pages** → Source: **Deploy from a branch** → `main` / `/ (root)`.
-3. Open **`https://jonaswillen.github.io/Recipes/`** on your phone → install via
-   "Add to Home Screen" (iOS: Safari → Share → Add to Home Screen; Android: menu →
-   "Install app" or the in-app Install button).
+One-time setup in the GitHub web UI (checked 2026-11-09: Pages is not enabled yet, the
+URL currently 404s):
 
-> GitHub Pages on a **private** repo needs a paid plan — make the repo public or use any
-> other static host (Netlify, Vercel, Cloudflare Pages); nothing in the app is
-> host-specific.
+1. Repo → **Settings → General** → set **Default branch** to `main`.
+2. Repo → **Settings → Pages** → Source: **Deploy from a branch** → `main` / `/ (root)`
+   → Save. Wait for the `pages build and deployment` action to finish (~1 min).
+3. Open **`https://jonaswillen.github.io/Recipes/`** on your phone → install to the home
+   screen (Android: in-app **Install** button or menu → "Install app"; iOS: Safari →
+   Share → "Add to Home Screen").
+
+> If the repo ever goes private again, GitHub Free unpublishes Pages sites — keep the
+> repo public or use any other static host (Netlify, Vercel, Cloudflare Pages); nothing
+> in the app is host-specific.
 
 ## Structure
 

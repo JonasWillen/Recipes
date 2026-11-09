@@ -39,3 +39,30 @@ Format per entry:
     (see `spec.md` → "Hosting on github.io"; noted the private-repo caveat).
   - Created `README.md` (structure + how to run) and `spec.md` (spec + this meta
     section describing the prompt-log convention implemented by this very file).
+
+---
+
+## Entry 2
+
+- id: `b2e43615-ff93-4a31-ad3c-784a64dbdb02`
+- time: `2026-11-09T21:14:25Z`
+- prompt:
+
+  > I thing a change every thing at github to make the commit avialable using github.io can you check or do everything looks good?
+
+- outcome:
+  - Verified repo state via `gh`/API: `main` and `vibe/recipe-pwa-0b572b` both at
+    `83135cc`; repo is now **public** (`visibility: PUBLIC`), so Pages works on GitHub
+    Free (private repos need a paid plan and are unpublished on Free).
+  - Verified Pages is **not enabled**: `GET /repos/JonasWillen/Recipes/pages` → 404 and
+    `https://jonaswillen.github.io/Recipes/` → "Site not found" 404.
+  - Enabling Pages is a repo-settings change; mutating GitHub API calls are blocked in
+    this session (`gh api -X POST …/pages` → "Mutating GitHub API calls are not
+    allowed"), so the one-click enable must be done in the web UI — exact steps written
+    into `spec.md` and `README.md` (set default branch to `main`, then Settings → Pages →
+    deploy branch `main` from root).
+  - Confirmed the app itself is Pages-ready for the `/Recipes/` project path: `index.html`
+    and `.nojekyll` at root, all asset links relative, manifest `scope: "./"`,
+    share-target action `./share-target`, SW registered as `sw.js`; all 16 paths served
+    HTTP 200 from a loopback server smoke test.
+  - Updated `spec.md` / `README.md` hosting sections with the verified status and steps.

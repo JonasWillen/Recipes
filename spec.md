@@ -17,13 +17,14 @@ Prompt-log convention (append-only):
 - Each entry gets the message `id`, a UTC timestamp, the channel, the **verbatim prompt
   text**, and the outcome/decision it led to.
 - Entries are never edited or deleted — new prompts are appended at the bottom.
-- The first entry (session `fd57aeff-b545-4a71-a570-371076e74f16`, 2026-11-09) contains the
+- Entry 1 (session `fd57aeff-b545-4a71-a570-371076e74f16`, 2026-11-09) contains the
   original request and the two UX decisions the user made (Magazine layout + glossy
-  magazine theme as defaults).
+  magazine theme as defaults). Entry 2 (`b2e43615-…`) covers the github.io/Pages check.
 
 Key facts about this build:
 
-- **Repo:** `JonasWillen/Recipes` (branch created for this work: `vibe/recipe-pwa-0b572b`)
+- **Repo:** `JonasWillen/Recipes` (public), commit `83135cc` on `main`
+  (branch `vibe/recipe-pwa-0b572b` points at the same commit).
 - **Stack:** dependency-free vanilla HTML/CSS/JS. No build step, no npm packages, no
   frameworks — so it can be served as plain static files from any host.
 - **Storage:** IndexedDB (`recipe-box` database), photos stored as compressed JPEG blobs.
@@ -143,19 +144,37 @@ python3 -m http.server 8000
 
 ## Hosting on github.io (GitHub Pages)
 
-The app uses only relative paths, so it works from a project page (not just user pages):
+The app uses only relative paths and has `index.html` + `.nojekyll` at the repo root,
+so it works from a **project page** (`/Recipes/`), not just a user page.
 
-1. Push `main` (or merge this PR).
-2. Repo → **Settings → Pages → Build and deployment → Source: Deploy from a branch**,
-   branch `main`, folder `/ (root)` → Save.
-3. After a minute the app is live at **`https://jonaswillen.github.io/Recipes/`** —
-   open it on the phone, then install it to the home screen.
+Status checked 2026-11-09 (session `b2e43615-…`, see `prompts.log`):
 
-> Note: GitHub Pages for **private** repositories requires a paid GitHub plan. If this
-> repo stays private, either make it public or use any other static host (Netlify,
-> Vercel, Cloudflare Pages) — the app has no host-specific code. `https://…github.io` is
-> what is usually meant by "google.io"-style hosting; adjust here if a different host
-> was intended.
+- Repo `JonasWillen/Recipes` is **public** (required for Pages on GitHub Free;
+  private repos need a paid plan — GitHub unpublishes private-repo sites on Free).
+- Both `main` and `vibe/recipe-pwa-0b572b` point at commit `83135cc`.
+- Pages is **not enabled yet**: `GET /repos/JonasWillen/Recipes/pages` → 404 and
+  `https://jonaswillen.github.io/Recipes/` → GitHub's "Site not found" 404.
+
+To go live (one-time, in the web UI — this session's token cannot change repo
+settings, mutating GitHub API calls are blocked):
+
+1. Repo → **Settings → General → Default branch** → switch to `main`
+   (currently `vibe/recipe-pwa-0b572b`, the first pushed branch).
+2. Repo → **Settings → Pages → Build and deployment → Source: "Deploy from a branch"**
+   → branch `main`, folder `/ (root)` → **Save**.
+3. Wait ~1 minute (watch **Actions** for the `pages build and deployment` run), then
+   open **`https://jonaswillen.github.io/Recipes/`** on the phone and install it to the
+   home screen (Android: in-app Install button or menu → "Install app"; iOS: Safari →
+   Share → "Add to Home Screen").
+
+Post-enable verification: the URL must serve `index.html` (not a 404), and
+`manifest.webmanifest`, `sw.js`, `css/`, `js/`, `icons/` must all load — the service
+worker, manifest `scope: "./"` and share-target action `./share-target` are relative,
+so they work unchanged under the `/Recipes/` path.
+
+Alternative hosts: anything that serves static files works (Netlify, Vercel, Cloudflare
+Pages) — the app has no host-specific code. `https://…github.io` is what is usually
+meant by "google.io"-style hosting; adjust here if a different host was intended.
 
 ## Privacy
 
